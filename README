@@ -1,0 +1,32 @@
+= Fullcircle Client for Python =
+
+== Requirements ==
+* Python ;-)
+* Protobuf for python
+
+== Used ==
+* Python 2.7
+* protobuf-2.4.1
+
+== Update of Protobuf ==
+Inside the sequece.proto the messages are definded.
+
+The protbuf module for python was generated with the following command:
+ protoc -I=. --python_out=. sequence.proto
+The newest version of sequence.proto has to be fetched from github.com/C3MA/fullcircle/
+
+'''Note:'''
+On changes the python code has to be updated, as the number for the type is hardcoded
+
+== Application ==
+=== Ping ===
+Client Application to test the communication via the Ping-Pong pattern:
+ client-ping.py
+
+Usage: client-ping.py [options] arg1 arg2
+
+Options:
+  -h, --help            show this help message and exit
+  -t TARGET, --target=TARGET
+=== Send Frame ===
+Big TODO

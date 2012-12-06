@@ -36,12 +36,12 @@ class FcClient(object):
         self.sock.send(head + raw2send)
         
         # read from the socket (expect Pong)
-        rawreceive = self.sock.recv(4096)
+        rawreceive = self.sock.recv(10)
         # extract length of header (simply the first 10 bytes)
         length = (rawreceive[:10]).strip()
         
         # read protobuf content
-        content = rawreceive[10:]
+        content = self.sock.recv(int(length))
         incoming = sequence_pb2.Snip.FromString( content )
         # type has to be looked up manually from the sequence.proto
         if (incoming.type == 2):

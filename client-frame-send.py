@@ -7,7 +7,9 @@ from optparse import OptionParser
 import sys
 import socket
 from PyFullcircle import FcClient
-import time
+
+def frameupdate():
+	print "we have to update a new frame and give it to the backend."
 
 def main():
 	usage = "usage: %prog [options] arg1 arg2"
@@ -19,18 +21,13 @@ def main():
 	
 	try:
 		client = FcClient(options.target)
-		start = time.time()
-		for i in range(10):
-			pong = client.ping(i)
-			if (pong != i):
-				print "could not receive %d, but %d" % (i , pong)
-			else:
-				end = time.time()
-				print "%d\t%4.3f ms" % (i, (end-start) * 1000)
-				start=end
-				
+		fps = 25
+		width = 10
+		height = 6
+		client.send_frames(fps, width, height, frameupdate)		
 	except socket.error, msg:
 		sys.stderr.write("[ERROR] %s\n" % msg[1])
+		parser.print_help()
 		sys.exit(1)
 		
 	

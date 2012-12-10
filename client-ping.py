@@ -31,6 +31,7 @@ def main():
 				
 	except socket.error, msg:
 		sys.stderr.write("[ERROR] %s\n" % msg[1])
+		parser.print_help()
 		sys.exit(1)
 		
 	

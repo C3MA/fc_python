@@ -80,14 +80,14 @@ class FcClient(object):
         rawreceive = self.sock.recv(10)
         # extract length of header (simply the first 10 bytes)
         length = (rawreceive[:10]).strip()
-        print ("Got %d bytes" & length) # FIXME remove debug line
+        print ("Got %s bytes" % length) # FIXME remove debug line
         
         # read protobuf content
         content = self.sock.recv(int(length))
         incoming = sequence_pb2.Snip.FromString( content )
         
         # type has to be looked up manually from the sequence.proto
-        if (incoming.type == 2):
+        if (incoming.type == 5):
             return incoming.pong_snip.count
         else:
             raise socket.error("custom", "Wrong type, expected PongSnip" )

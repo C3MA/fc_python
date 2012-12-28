@@ -15,6 +15,63 @@ GENERATOR_VERSION="0.1"
 
 PORT=24567
 
+class FcPixel():
+    red = None
+    green = None
+    blue = None
+
+    def __init__(self, r,g,b):
+        self.red = r
+        self.green = g
+        self.blue = b
+
+    def setColor(self, r,g,b):
+        self.red = r
+        self.green = g
+        self.blue = b
+
+
+class FcFrame():
+    width = None
+    height = None
+
+    pixels = []
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+        tmpArr = []
+
+        for x in range( 0,width):
+            for y in range( 0,height):
+                tmpArr.append(FcPixel(0,0,0))
+            self.pixels.append(tmpArr)
+            tmpArr = []
+
+
+    def setColorForPixel(self, x,y,r,g,b):
+        self.pixels[x][y].setColor(r,g,b)
+
+
+    def getProtobufPkt(self):
+
+        payload = sequence_pb2.Snip()
+
+        for x in range( 0,self.width):
+            for y in range( 0,self.height):
+                pix = payload.frame_snip.frame.pixel.add()
+                pix.x = x
+                pix.y = y
+                pix.blue = self.pixels[x][y].blue
+                pix.green = self.pixels[x][y].green
+                pix.red = self.pixels[x][y].red
+
+        payload.type = 6
+
+        return payload.SerializeToString()
+
+
 class FcClient(object):
     '''
     classdocs
@@ -58,6 +115,11 @@ class FcClient(object):
             raise socket.error("custom", "Wrong type, expected PongSnip" )
         
     def send_frames(self, fps, width, height, frameupdate):
+        
+        #FIXME test blubb
+        sleepTime = (1.0 / fps)
+        print("wait %f s between two frames" % sleepTime)
+        
         # Build the snippet
         payload = sequence_pb2.Snip()
         payload.req_snip.color = CLIENT_COLOR
@@ -90,7 +152,7 @@ class FcClient(object):
         sendPossible = False
         # wait for ack
         if (incoming.type == 7):
-            print "Starting endless loop, we can SEND something"
+            print ("Starting endless loop, we can SEND something")
             while(1):
                 if (not sendPossible):
                     # read from the socket (expect Ack)
@@ -107,9 +169,12 @@ class FcClient(object):
                     sendPossible = True
                 
                 if (sendPossible):
-                    frameupdate()
-                    
-                time.sleep(0.1)
+                    cont = frameupdate(width, height)
+                    head = '%10d' % len(cont)
+                    self.sock.send(head + cont)
+
+                print ("Wait for %f sec" % sleepTime)
+                time.sleep(sleepTime)
         else:
             raise socket.error("custom", "Wrong type, expected Ack" )
     

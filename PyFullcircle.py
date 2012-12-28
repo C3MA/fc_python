@@ -31,6 +31,15 @@ class FcPixel():
         self.blue = b
 
 
+def getEOS():
+
+    payload = sequence_pb2.Snip()
+    # payload.eos_snip
+    # type has to be looked up manually from the sequence.proto
+    payload.type = 11
+
+    return payload.SerializeToString()
+
 class FcFrame():
     width = None
     height = None
@@ -148,7 +157,9 @@ class FcClient(object):
         # read protobuf content
         content = self.sock.recv(int(length))
         incoming = sequence_pb2.Snip.FromString( content )
-                
+
+        br = False
+
         sendPossible = False
         # wait for ack
         if (incoming.type == 7):
@@ -170,8 +181,14 @@ class FcClient(object):
                 
                 if (sendPossible):
                     cont = frameupdate(width, height)
+                    if cont is None:
+                        cont = getEOS()
+                        br = True
                     head = '%10d' % len(cont)
                     self.sock.send(head + cont)
+                    if br:
+                        print ("Peace Off!")
+                        break
 
                 print ("Wait for %f sec" % sleepTime)
                 time.sleep(sleepTime)

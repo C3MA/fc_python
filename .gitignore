@@ -1,3 +1,4 @@
 sequence_pb2.py
 .project
 .pydevproject
+*.pyc

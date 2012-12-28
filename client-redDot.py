@@ -23,7 +23,9 @@ class RedDotAni():
 
         frame = FcFrame(w,h)
 
-        print "X: %i Y: %i" % (self.dotPosX, self.dotPosY)
+       # print "X: %i Y: %i" % (self.dotPosX, self.dotPosY)
+       # print frame
+
         frame.setColorForPixel(self.dotPosX, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
 
         self.dotPosX += 1
@@ -42,9 +44,9 @@ def main():
     (options, args) = parser.parse_args()
     print "Target"  , options.target
 
-    fps = 25
+    fps = 10
     width = 10
-    height = 6
+    height = 12
 
     rda = RedDotAni()
 

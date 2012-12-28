@@ -30,6 +30,9 @@ class FcPixel():
         self.green = g
         self.blue = b
 
+    def __str__(self):
+        return "r%sg%sb%s" % (self.red, self.green, self.blue)
+
 
 def getEOS():
 
@@ -49,6 +52,8 @@ class FcFrame():
     def __init__(self, width, height):
         self.width = width
         self.height = height
+        self.pixels = []
+
 
         tmpArr = []
 
@@ -58,6 +63,14 @@ class FcFrame():
             self.pixels.append(tmpArr)
             tmpArr = []
 
+
+    def __str__(self):
+        str = ""
+        for x in range( 0,self.width):
+            for y in range( 0,self.height):
+                str += ";%s" % self.pixels[x][y]
+
+        return "Frame: " + str
 
     def setColorForPixel(self, x,y,r,g,b):
         self.pixels[x][y].setColor(r,g,b)
@@ -159,7 +172,7 @@ class FcClient(object):
         incoming = sequence_pb2.Snip.FromString( content )
 
         br = False
-
+        cont = ""
         sendPossible = False
         # wait for ack
         if (incoming.type == 7):
@@ -180,7 +193,14 @@ class FcClient(object):
                     sendPossible = True
                 
                 if (sendPossible):
-                    cont = frameupdate(width, height)
+
+                    try:
+                        cont = frameupdate(width, height)
+                    except Exception as ext:
+                        print "Da isn Fehler!"
+                        print ext.message
+                        cont = None
+
                     if cont is None:
                         cont = getEOS()
                         br = True

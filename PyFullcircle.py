@@ -6,6 +6,7 @@ Created on 05.12.2012
 
 import socket
 import sequence_pb2
+import time
 
 CLIENT_COLOR="red"
 SEQUENCE_ID=1
@@ -76,20 +77,40 @@ class FcClient(object):
         self.sock.send(head + raw2send)
         print("Sent the request") # FIXME remove debug line
         
-        # read from the socket (expect Pong)
+        # read from the socket (expect Ack)
         rawreceive = self.sock.recv(10)
         # extract length of header (simply the first 10 bytes)
         length = (rawreceive[:10]).strip()
-        print ("Got %s bytes" % length) # FIXME remove debug line
+        #print ("Got %s bytes" % length) # FIXME remove debug line
         
         # read protobuf content
         content = self.sock.recv(int(length))
         incoming = sequence_pb2.Snip.FromString( content )
-        
-        # type has to be looked up manually from the sequence.proto
-        if (incoming.type == 5):
-            return incoming.pong_snip.count
+                
+        sendPossible = False
+        # wait for ack
+        if (incoming.type == 7):
+            print "Starting endless loop, we can SEND something"
+            while(1):
+                if (not sendPossible):
+                    # read from the socket (expect Ack)
+                    rawreceive = self.sock.recv(10)
+                    # extract length of header (simply the first 10 bytes)
+                    length = (rawreceive[:10]).strip()
+                    # read protobuf content
+                    content = self.sock.recv(int(length))
+                    incoming = sequence_pb2.Snip.FromString( content )
+                    #print ("Got %s bytes" % length) # FIXME remove debug line
+                    print ("Got type %d " %  incoming.type)
+                
+                if (incoming.type == 5):
+                    sendPossible = True
+                
+                if (sendPossible):
+                    frameupdate()
+                    
+                time.sleep(0.1)
         else:
-            raise socket.error("custom", "Wrong type, expected PongSnip" )
+            raise socket.error("custom", "Wrong type, expected Ack" )
     
         

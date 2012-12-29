@@ -140,8 +140,13 @@ class ClockAni():
         if self.frameCnt > 253:
             return None
 
-        self.dotColorB -= 1
-        self.dotColorR += 1
+        if self.dotColorB >= 0x00 and self.dotColorR <= 0xff:
+            self.dotColorB -= 2
+            self.dotColorR += 2
+        else:
+            self.dotColorB = 0x00
+            self.dotColorR = 0xff
+
 
         return frame.getProtobufPkt()
 
@@ -153,7 +158,7 @@ def main():
     (options, args) = parser.parse_args()
     print "Target"  , options.target
 
-    fps = 10
+    fps = 30
     width = 10
     height = 12
 

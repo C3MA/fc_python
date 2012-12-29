@@ -15,9 +15,9 @@ class RedDotAni():
 
     dotPosX = 0
     dotPosY = 0
-    dotColorR = 255
-    dotColorG = 0
-    dotColorB = 0
+    dotColorR = 0x00
+    dotColorG = 0x12
+    dotColorB = 0x87
 
     def frameupdate(self,w,h):
 

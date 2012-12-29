@@ -73,9 +73,20 @@ class FcFrame():
         return "Frame: " + str
 
     def setColorForPixel(self, x,y,r,g,b):
+
+        if x >= self.width or y >= self.height:
+            return
+
+        if r > 255 or g > 255 or b > 255 or r < 0 or g  < 0 or b < 0:
+            return
+
         self.pixels[x][y].setColor(r,g,b)
 
-
+    def drawLine(self, x1, y1, x2, y2, red, green, blue):
+        for x in range(x1, x2 + 1):
+            for y in range(y1, y2 + 1):
+                self.setColorForPixel(x, y, red, green, blue)
+                
     def getProtobufPkt(self):
 
         payload = sequence_pb2.Snip()
@@ -92,7 +103,6 @@ class FcFrame():
         payload.type = 6
 
         return payload.SerializeToString()
-
 
 class FcClient(object):
     '''

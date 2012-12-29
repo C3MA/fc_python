@@ -13,7 +13,6 @@ from PyFullcircle import FcClient, FcFrame, FcPixel
 
 class RedDotAni():
 
-    dotPosX = 0
     dotPosY = 0
     dotColorR = 0x00
     dotColorG = 0x12
@@ -23,15 +22,12 @@ class RedDotAni():
 
         frame = FcFrame(w,h)
 
-       # print "X: %i Y: %i" % (self.dotPosX, self.dotPosY)
-       # print frame
+        frame.drawLine(0, self.dotPosY, w-1, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
 
-        frame.setColorForPixel(self.dotPosX, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
 
-        self.dotPosX += 1
         self.dotPosY += 1
 
-        if self.dotPosX >= w or self.dotPosY >= h:
+        if self.dotPosY > h:
            return None
 
         return frame.getProtobufPkt()

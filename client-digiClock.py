@@ -110,6 +110,8 @@ class ClockAni():
     dotColorG = 0x00
     dotColorB = 0xff
 
+    dpOn = True
+
     def frameupdate(self,w,h):
 
         frame = FcFrame(w,h)
@@ -118,7 +120,7 @@ class ClockAni():
         m = time.strftime("%M")
 
         zeile = 0
-        spalte = 2
+        spalte = 0
 
         for z in h:
             arrMap = getPixelForChar(z)
@@ -127,7 +129,7 @@ class ClockAni():
             spalte += 4
 
         zeile = 6
-        spalte = 2
+        spalte = 0
 
         for z in m:
             arrMap = getPixelForChar(z)
@@ -144,9 +146,21 @@ class ClockAni():
             self.dotColorB -= 2
             self.dotColorR += 2
         else:
-            self.dotColorB = 0x00
-            self.dotColorR = 0xff
+            self.dotColorB = 0xff
+            self.dotColorR = 0x00
 
+
+        if (self.frameCnt % 30) == 0:
+            self.dpOn = not self.dpOn
+
+        if self.dpOn:
+            punktOffsetX = w-3
+            punktOffsetY = 3
+
+            dp = getPixelForChar(':')
+
+            for pix in dp:
+                frame.setColorForPixel (punktOffsetX + pix[0], punktOffsetY+pix[1], 0x00, 0xff, 0x00)
 
         return frame.getProtobufPkt()
 

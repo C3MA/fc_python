@@ -12,95 +12,7 @@ import sys
 import socket
 from PyFullcircle import FcClient, FcFrame, FcPixel
 import time
-
-font = {"1":"""
-#*#
-**#
-#*#
-#*#
-***""",
-        "2":"""
-***
-##*
-***
-*##
-***""",
-        "3":"""
-***
-##*
-***
-##*
-***""",
-        "4":"""
-*#*
-*#*
-***
-##*
-##*""",
-        "5":"""
-***
-*##
-***
-##*
-***""",
-        "6":"""
-***
-*##
-***
-*#*
-***""",
-        "7":"""
-***
-##*
-#*#
-#*#
-#*#""",
-        "8":"""
-***
-*#*
-***
-*#*
-***""",
-        "9":"""
-***
-*#*
-***
-##*
-***""",
-        "0":"""
-***
-*#*
-*#*
-*#*
-***""",
-        ":":"""
-###
-#*#
-###
-#*#
-###""",}
-
-
-def getPixelForChar(char):
-
-    c = font[char].strip()
-  #  c = char.split("\n")
-    ret = []
-
-    y = 0
-    x = 0
-
-    for line in c:
-        if line == "*":
-            ret.append([x,y])
-        if line == "\n":
-            x=-1
-            y+=1
-        x+=1
-
-    return ret
-
-
+from PyFullcircleFonts import PyFcFonts
 
 class ClockAni():
 
@@ -112,6 +24,9 @@ class ClockAni():
 
     dpOn = True
 
+    def __init__(self):
+        self.fontObj = PyFcFonts()
+
     def frameupdate(self,w,h):
 
         frame = FcFrame(w,h)
@@ -119,23 +34,7 @@ class ClockAni():
         h = time.strftime("%H")
         m = time.strftime("%M")
 
-        zeile = 0
-        spalte = 0
-
-        for z in h:
-            arrMap = getPixelForChar(z)
-            for pix in arrMap:
-                frame.setColorForPixel (spalte + pix[0], zeile+pix[1], self.dotColorR, self.dotColorG, self.dotColorB)
-            spalte += 4
-
-        zeile = 6
-        spalte = 0
-
-        for z in m:
-            arrMap = getPixelForChar(z)
-            for pix in arrMap:
-                frame.setColorForPixel (spalte + pix[0], zeile+pix[1], self.dotColorR, self.dotColorG, self.dotColorB)
-            spalte += 4
+        self.fontObj.drawText(frame, 0,0, h +"\n"+ m , self.dotColorR, 0x00, self.dotColorB)
 
         self.frameCnt+=1
 
@@ -154,13 +53,8 @@ class ClockAni():
             self.dpOn = not self.dpOn
 
         if self.dpOn:
-            punktOffsetX = w-3
-            punktOffsetY = 3
 
-            dp = getPixelForChar(':')
-
-            for pix in dp:
-                frame.setColorForPixel (punktOffsetX + pix[0], punktOffsetY+pix[1], 0x00, 0xff, 0x00)
+            self.fontObj.drawText(frame, w-3,3, ":" , 0x00, 0xff, 0x00)
 
         return frame.getProtobufPkt()
 

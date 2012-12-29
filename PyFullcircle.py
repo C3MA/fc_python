@@ -7,6 +7,7 @@ Created on 05.12.2012
 import socket
 import sequence_pb2
 import time
+import threading
 
 CLIENT_COLOR="red"
 SEQUENCE_ID=1
@@ -82,6 +83,14 @@ class FcFrame():
 
         self.pixels[x][y].setColor(r,g,b)
 
+        if x >= self.width or y >= self.height:
+            return
+
+        if r > 255 or g > 255 or b > 255 or r < 0 or g  < 0 or b < 0:
+            return
+
+        self.pixels[x][y].setColor(r,g,b)
+
     def drawLine(self, x1, y1, x2, y2, red, green, blue):
         for x in range(x1, x2 + 1):
             for y in range(y1, y2 + 1):
@@ -147,10 +156,14 @@ class FcClient(object):
             raise socket.error("custom", "Wrong type, expected PongSnip" )
         
     def send_frames(self, fps, width, height, frameupdate):
-        
+
+        self.callBack = frameupdate
+        self.w = width
+        self.h = height
+
         #FIXME test blubb
-        sleepTime = (1.0 / fps)
-        print("wait %f s between two frames" % sleepTime)
+        self.sleepTime = (1.0 / fps)
+        print("wait %f s between two frames" % self.sleepTime)
         
         # Build the snippet
         payload = sequence_pb2.Snip()
@@ -181,48 +194,60 @@ class FcClient(object):
         content = self.sock.recv(int(length))
         incoming = sequence_pb2.Snip.FromString( content )
 
-        br = False
-        cont = ""
-        sendPossible = False
+
         # wait for ack
         if (incoming.type == 7):
             print ("Starting endless loop, we can SEND something")
-            while(1):
-                if (not sendPossible):
-                    # read from the socket (expect Ack)
-                    rawreceive = self.sock.recv(10)
-                    # extract length of header (simply the first 10 bytes)
-                    length = (rawreceive[:10]).strip()
-                    # read protobuf content
-                    content = self.sock.recv(int(length))
-                    incoming = sequence_pb2.Snip.FromString( content )
-                    #print ("Got %s bytes" % length) # FIXME remove debug line
-                    print ("Got type %d " %  incoming.type)
-                
-                if (incoming.type == 5):
-                    sendPossible = True
-                
-                if (sendPossible):
 
-                    try:
-                        cont = frameupdate(width, height)
-                    except Exception as ext:
-                        print "Da isn Fehler!"
-                        print ext.message
-                        cont = None
+            self.br = False
+            self.cont = ""
+            self.sendPossible = False
 
-                    if cont is None:
-                        cont = getEOS()
-                        br = True
-                    head = '%10d' % len(cont)
-                    self.sock.send(head + cont)
-                    if br:
-                        print ("Peace Off!")
-                        break
+            self.timerSend()
 
-                print ("Wait for %f sec" % sleepTime)
-                time.sleep(sleepTime)
         else:
             raise socket.error("custom", "Wrong type, expected Ack" )
-    
-        
+
+    def timerSend(self):
+
+        print "Timer Call!"
+
+
+        if (not self.sendPossible):
+            # read from the socket (expect Ack)
+            rawreceive = self.sock.recv(10)
+            # extract length of header (simply the first 10 bytes)
+            length = (rawreceive[:10]).strip()
+
+            print ("Got %s bytes" % length) # FIXME remove debug line
+
+            # read protobuf content
+            content = self.sock.recv(int(length))
+            incoming = sequence_pb2.Snip.FromString( content )
+
+            print ("Got type %d " %  incoming.type)
+
+            if (incoming.type == 5):
+                self.sendPossible = True
+
+        if (self.sendPossible):
+
+            try:
+                cont = self.callBack(self.w, self.h)
+            except Exception as ext:
+                print "Da isn Fehler!"
+                print ext.message
+                cont = None
+
+            if cont is None:
+                cont = getEOS()
+                self.br = True
+            head = '%10d' % len(cont)
+            self.sock.send(head + cont)
+            if self.br:
+                print ("Peace Off!")
+                return
+
+        if not self.br:
+            threading.Timer(self.sleepTime, self.timerSend).start()
+

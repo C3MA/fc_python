@@ -1,3 +1,5 @@
+from datetime import date
+
 __author__ = 'bene'
 
 #!/opt/local/bin/python2.7
@@ -9,30 +11,50 @@ from optparse import OptionParser
 import sys
 import socket
 from PyFullcircle import FcClient, FcFrame, FcPixel
+import time
+from PyFullcircleFonts import PyFcFonts
 
+class ClockAni():
 
-class RedDotAni():
+    frameCnt = 0
 
-    dotPosX = 0
-    dotPosY = 0
-    dotColorR = 0xff
+    dotColorR = 0x00
     dotColorG = 0x00
-    dotColorB = 0x00
+    dotColorB = 0xff
+
+    dpOn = True
+
+    def __init__(self):
+        self.fontObj = PyFcFonts()
 
     def frameupdate(self,w,h):
 
         frame = FcFrame(w,h)
 
-       # print "X: %i Y: %i" % (self.dotPosX, self.dotPosY)
-       # print frame
+        h = time.strftime("%H")
+        m = time.strftime("%M")
 
-        frame.setColorForPixel(self.dotPosX, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
+        self.fontObj.drawText(frame, 0,0, h +"\n"+ m , self.dotColorR, 0x00, self.dotColorB)
 
-        self.dotPosX += 1
-        self.dotPosY += 1
+        self.frameCnt+=1
 
-        if self.dotPosX >= w or self.dotPosY >= h:
-           return None
+        if self.frameCnt > 253:
+            return None
+
+        if self.dotColorB >= 0x00 and self.dotColorR <= 0xff:
+            self.dotColorB -= 2
+            self.dotColorR += 2
+        else:
+            self.dotColorB = 0xff
+            self.dotColorR = 0x00
+
+
+        if (self.frameCnt % 30) == 0:
+            self.dpOn = not self.dpOn
+
+        if self.dpOn:
+
+            self.fontObj.drawText(frame, w-3,3, ":" , 0x00, 0xff, 0x00)
 
         return frame.getProtobufPkt()
 
@@ -44,11 +66,11 @@ def main():
     (options, args) = parser.parse_args()
     print "Target"  , options.target
 
-    fps = 2
+    fps = 30
     width = 10
     height = 12
 
-    rda = RedDotAni()
+    rda = ClockAni()
 
     try:
         client = FcClient(options.target)

@@ -26,9 +26,12 @@ class RedDotAni():
        # print "X: %i Y: %i" % (self.dotPosX, self.dotPosY)
        # print frame
 
-        frame.setColorForPixel(self.dotPosX, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
+        for x in range(0, w):
+            frame.setColorForPixel(x, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
 
-        self.dotPosX += 1
+
+
+        #self.dotPosX += 1
         self.dotPosY += 1
 
         if self.dotPosX >= w or self.dotPosY >= h:
@@ -44,7 +47,7 @@ def main():
     (options, args) = parser.parse_args()
     print "Target"  , options.target
 
-    fps = 2
+    fps = 10
     width = 10
     height = 12
 

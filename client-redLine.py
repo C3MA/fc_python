@@ -20,12 +20,12 @@ class RedDotAni():
 
     def frameupdate(self,frame):
 
-        frame.drawLine(0, self.dotPosY, w-1, self.dotPosY + 2, self.dotColorR, self.dotColorG, self.dotColorB)
+        frame.drawLine(0, self.dotPosY, frame.getWidth() -1, self.dotPosY + 2, self.dotColorR, self.dotColorG, self.dotColorB)
 
 
         self.dotPosY += 1
 
-        if self.dotPosY > h:
+        if self.dotPosY > frame.getHeight():
            return True
 
 

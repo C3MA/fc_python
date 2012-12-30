@@ -8,13 +8,13 @@ import sys
 import socket
 from PyFullcircle import FcClient, FcFrame, FcPixel
 
-def frameupdate(w,h):
-
-    frame = FcFrame(w,h)
+def frameupdate(frame):
 
 
+    # Fülle hier den Frame
+    # Gib True zurück wenn dein Framestream fertig ist
+    pass
 
-    return frame.getProtobufPkt()
 
 def main():
 	usage = "usage: %prog [options] arg1 arg2"

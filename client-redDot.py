@@ -19,12 +19,7 @@ class RedDotAni():
     dotColorG = 0x00
     dotColorB = 0x00
 
-    def frameupdate(self,w,h):
-
-        frame = FcFrame(w,h)
-
-       # print "X: %i Y: %i" % (self.dotPosX, self.dotPosY)
-       # print frame
+    def frameupdate(self,frame):
 
         frame.setColorForPixel(self.dotPosX, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
 
@@ -32,9 +27,8 @@ class RedDotAni():
         self.dotPosY += 1
 
         if self.dotPosX >= w or self.dotPosY >= h:
-           return None
+           return True
 
-        return frame.getProtobufPkt()
 
 def main():
     usage = "usage: %prog [options] arg1 arg2"

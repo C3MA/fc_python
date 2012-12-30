@@ -64,6 +64,11 @@ class FcFrame():
             self.pixels.append(tmpArr)
             tmpArr = []
 
+    def getWidth(self):
+        return self.width
+
+    def getHeight(self):
+        return self.height
 
     def __str__(self):
         str = ""
@@ -157,10 +162,8 @@ class FcClient(object):
         self.w = width
         self.h = height
 
-        #FIXME test blubb
         self.sleepTime = (1.0 / fps)
-        print("wait %f s between two frames" % self.sleepTime)
-        
+
         # Build the snippet
         payload = sequence_pb2.Snip()
         payload.req_snip.color = CLIENT_COLOR
@@ -178,14 +181,12 @@ class FcClient(object):
         raw2send = payload.SerializeToString()
         head = '%10d' % len(raw2send)
         self.sock.send(head + raw2send)
-        print("Sent the request") # FIXME remove debug line
-        
+
         # read from the socket (expect Ack)
         rawreceive = self.sock.recv(10)
         # extract length of header (simply the first 10 bytes)
         length = (rawreceive[:10]).strip()
-        #print ("Got %s bytes" % length) # FIXME remove debug line
-        
+
         # read protobuf content
         content = self.sock.recv(int(length))
         incoming = sequence_pb2.Snip.FromString( content )
@@ -206,16 +207,11 @@ class FcClient(object):
 
     def timerSend(self):
 
-        print "Timer Call!"
-
-
         if (not self.sendPossible):
             # read from the socket (expect Ack)
             rawreceive = self.sock.recv(10)
             # extract length of header (simply the first 10 bytes)
             length = (rawreceive[:10]).strip()
-
-            print ("Got %s bytes" % length) # FIXME remove debug line
 
             # read protobuf content
             content = self.sock.recv(int(length))
@@ -227,17 +223,19 @@ class FcClient(object):
                 self.sendPossible = True
 
         if (self.sendPossible):
-
+            frame  = FcFrame(self.w,self.h)
             try:
-                cont = self.callBack(self.w, self.h)
+                cont = self.callBack(frame)
             except Exception as ext:
                 print "Da isn Fehler!"
                 print ext.message
-                cont = None
+                cont = True
 
-            if cont is None:
+            if cont is True:
                 cont = getEOS()
                 self.br = True
+            else:
+                cont = frame.getProtobufPkt()
             head = '%10d' % len(cont)
             self.sock.send(head + cont)
             if self.br:

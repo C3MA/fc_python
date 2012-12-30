@@ -18,9 +18,7 @@ class RedDotAni():
     dotColorG = 0x12
     dotColorB = 0x87
 
-    def frameupdate(self,w,h):
-
-        frame = FcFrame(w,h)
+    def frameupdate(self,frame):
 
         frame.drawLine(0, self.dotPosY, w-1, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
 
@@ -28,9 +26,8 @@ class RedDotAni():
         self.dotPosY += 1
 
         if self.dotPosY > h:
-           return None
+           return True
 
-        return frame.getProtobufPkt()
 
 def main():
     usage = "usage: %prog [options] arg1 arg2"

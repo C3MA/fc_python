@@ -22,7 +22,7 @@ class RedDotAni():
 
         frame = FcFrame(w,h)
 
-        frame.drawLine(0, self.dotPosY, w-1, self.dotPosY, self.dotColorR, self.dotColorG, self.dotColorB)
+        frame.drawLine(0, self.dotPosY, w-1, self.dotPosY + 2, self.dotColorR, self.dotColorG, self.dotColorB)
 
 
         self.dotPosY += 1

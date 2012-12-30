@@ -87,10 +87,29 @@ class FcFrame():
         self.pixels[x][y].setColor(r,g,b)
 
 
-    def drawLine(self, x1, y1, x2, y2, red, green, blue):
-        for x in range(x1, x2 + 1):
-            for y in range(y1, y2 + 1):
-                self.setColorForPixel(x, y, red, green, blue)
+    def drawLine(self, x0, y0, x1, y1, red, green, blue):
+        #row
+        #http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+        deltax = x1 - x0
+        deltay = y1 - y0
+        
+        print("From %ix%i To %ix%i -> width=%i, height=%i" % (x0,y0, x1, y1, deltax, deltay))
+        
+        # also print the final character
+        deltax += 1
+        #deltay += 1
+        
+        error = 0.0
+        deltaerr = abs (deltay / deltax)    # Assume deltax != 0 (line is not vertical),
+        # note that this division needs to be done in a way that preserves the fractional part
+        y = y0
+        for x in range(x0, x1 + 1):
+            self.setColorForPixel(x, y, red, green, blue)
+            error = error + deltaerr
+            print("Delta Error is %f" % deltaerr) #FIXME debug has to be removed
+            if error >= 0.5:
+                y +=  1
+                error = error - 1.0
                 
     def getProtobufPkt(self):
 

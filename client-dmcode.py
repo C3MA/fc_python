@@ -9,25 +9,42 @@ from optparse import OptionParser
 import sys
 import socket
 from PyFullcircle import FcClient, FcFrame, FcPixel
+from PyFullcircleFonts import PyFcFonts
 
 
 class RedDotAni():
 
-    dotPosY = 0
-    dotColorR = 0x00
-    dotColorG = 0x12
-    dotColorB = 0x87
+    dotColorR = 0xff
+    dotColorG = 0xff
+    dotColorB = 0xff
 
-    def frameupdate(self,frame):
+    frameCnt = 0
 
-        frame.drawLine(0, self.dotPosY, w-1, self.dotPosY + 2, self.dotColorR, self.dotColorG, self.dotColorB)
+    font1LineChars = {
+        "$":"""
+#*#*#*#*#*
+#*##**#*##
+#****#*##*
+##***#**##
+#***##****
+#*#*##*#*#
+##****#*#*
+##**######
+#*#***###*
+##########
+                  """
+    }
 
+    def __init__(self):
+        self.fontObj = PyFcFonts(self.font1LineChars)
 
-        self.dotPosY += 1
+    def frameupdate(self, frame):
+        self.frameCnt+=1
 
-        if self.dotPosY > h:
+        self.fontObj.drawText(frame, 0, 0, "$", 0x48, 0x48, 0x48)
+
+        if self.frameCnt > 60:
            return True
-
 
 def main():
     usage = "usage: %prog [options] arg1 arg2"
@@ -37,7 +54,7 @@ def main():
     (options, args) = parser.parse_args()
     print "Target"  , options.target
 
-    fps = 10
+    fps = 2
     width = 10
     height = 12
 

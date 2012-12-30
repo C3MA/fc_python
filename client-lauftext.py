@@ -20,9 +20,11 @@ class RedDotAni():
     dotColorG = 0x30
     dotColorB = 0x10
 
+    repiet = 0
+
     #text = "C3MA - CHAOS IM QUADRAT"
 
-    text = "SEXIEST ERFA 2012 - SEXIEST ERFA 2012 - SEXIEST ERFA 2012 - SEXIEST ERFA 2012 - SEXIEST ERFA 2012"
+    text = "SEXIEST ERFA 2012 -"
 
    # text = "29C3 - NOT MY DEPARTMENT"
 
@@ -31,12 +33,11 @@ class RedDotAni():
     def __init__(self):
         self.fontObj = PyFcFonts(PyFcFonts.font2LineChars)
 
-    def frameupdate(self,w,h):
+    def frameupdate(self, frame):
         self.frameCnt+=1
-        frame = FcFrame(w,h)
 
-        for x in range(0,w):
-            for y in range(0,h):
+        for x in range(0,frame.getWidth()):
+            for y in range(0,frame.getHeight()):
                 frame.setColorForPixel(x,y,0x88,0x88,0x88)
 
 
@@ -50,9 +51,13 @@ class RedDotAni():
             self.dotPosX -= 1
 
         if self.dotPosX < (len(self.text)+1)*-5:
-            return None
+            self.repiet += 1
 
-        return frame.getProtobufPkt()
+            if self.repiet > 10:
+                return True
+            else:
+                self.dotPosX = 10
+
 
 def main():
     usage = "usage: %prog [options] arg1 arg2"

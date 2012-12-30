@@ -25,11 +25,9 @@ class ClockAni():
     dpOn = True
 
     def __init__(self):
-        self.fontObj = PyFcFonts()
+        self.fontObj = PyFcFonts(PyFcFonts.font2LineNumbers)
 
-    def frameupdate(self,w,h):
-
-        frame = FcFrame(w,h)
+    def frameupdate(self, frame):
 
         h = time.strftime("%H")
         m = time.strftime("%M")
@@ -39,7 +37,7 @@ class ClockAni():
         self.frameCnt+=1
 
         if self.frameCnt > 253:
-            return None
+            return True
 
         if self.dotColorB >= 0x00 and self.dotColorR <= 0xff:
             self.dotColorB -= 2
@@ -54,9 +52,8 @@ class ClockAni():
 
         if self.dpOn:
 
-            self.fontObj.drawText(frame, w-3,3, ":" , 0x00, 0xff, 0x00)
+            self.fontObj.drawText(frame, frame.getWidth() -3,3, ":" , 0x00, 0xff, 0x00)
 
-        return frame.getProtobufPkt()
 
 def main():
     usage = "usage: %prog [options] arg1 arg2"

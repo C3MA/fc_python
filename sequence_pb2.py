@@ -11,7 +11,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = descriptor.FileDescriptor(
   name='sequence.proto',
   package='fullcircle',
-  serialized_pb='\n\x0esequence.proto\x12\nfullcircle\"\x85\x01\n\x16\x42inarySequenceMetadata\x12\x19\n\x11\x66rames_per_second\x18\x01 \x02(\r\x12\r\n\x05width\x18\x02 \x02(\r\x12\x0e\n\x06height\x18\x03 \x02(\r\x12\x16\n\x0egenerator_name\x18\x04 \x02(\t\x12\x19\n\x11generator_version\x18\x05 \x02(\t\"J\n\x08RGBValue\x12\x0b\n\x03red\x18\x01 \x02(\r\x12\r\n\x05green\x18\x02 \x02(\r\x12\x0c\n\x04\x62lue\x18\x03 \x02(\r\x12\t\n\x01x\x18\x04 \x02(\r\x12\t\n\x01y\x18\x05 \x02(\r\"2\n\x0b\x42inaryFrame\x12#\n\x05pixel\x18\x01 \x03(\x0b\x32\x14.fullcircle.RGBValue\"n\n\x0e\x42inarySequence\x12\x34\n\x08metadata\x18\x01 \x02(\x0b\x32\".fullcircle.BinarySequenceMetadata\x12&\n\x05\x66rame\x18\x02 \x03(\x0b\x32\x17.fullcircle.BinaryFrame\"\xcf\x08\n\x04Snip\x12\'\n\x04type\x18\x01 \x02(\x0e\x32\x19.fullcircle.Snip.SnipType\x12,\n\tping_snip\x18\x0b \x01(\x0b\x32\x19.fullcircle.Snip.PingSnip\x12,\n\tpong_snip\x18\x0c \x01(\x0b\x32\x19.fullcircle.Snip.PongSnip\x12.\n\nerror_snip\x18\r \x01(\x0b\x32\x1a.fullcircle.Snip.ErrorSnip\x12.\n\x08req_snip\x18\x0e \x01(\x0b\x32\x1c.fullcircle.Snip.RequestSnip\x12.\n\nstart_snip\x18\x0f \x01(\x0b\x32\x1a.fullcircle.Snip.StartSnip\x12.\n\nframe_snip\x18\x10 \x01(\x0b\x32\x1a.fullcircle.Snip.FrameSnip\x12*\n\x08\x61\x63k_snip\x18\x11 \x01(\x0b\x32\x18.fullcircle.Snip.AckSnip\x12,\n\tnack_snip\x18\x12 \x01(\x0b\x32\x19.fullcircle.Snip.NackSnip\x12\x32\n\x0ctimeout_snip\x18\x13 \x01(\x0b\x32\x1c.fullcircle.Snip.TimeoutSnip\x12.\n\nabort_snip\x18\x14 \x01(\x0b\x32\x1a.fullcircle.Snip.AbortSnip\x12*\n\x08\x65os_snip\x18\x15 \x01(\x0b\x32\x18.fullcircle.Snip.EosSnip\x1a\x19\n\x08PingSnip\x12\r\n\x05\x63ount\x18\x01 \x02(\r\x1a\x19\n\x08PongSnip\x12\r\n\x05\x63ount\x18\x01 \x02(\r\x1aS\n\tErrorSnip\x12\x31\n\terrorcode\x18\x01 \x02(\x0e\x32\x1e.fullcircle.Snip.ErrorCodeType\x12\x13\n\x0b\x64\x65scription\x18\x02 \x02(\t\x1a]\n\x0bRequestSnip\x12\r\n\x05\x63olor\x18\x01 \x02(\t\x12\r\n\x05seqId\x18\x02 \x02(\r\x12\x30\n\x04meta\x18\x03 \x02(\x0b\x32\".fullcircle.BinarySequenceMetadata\x1a\x0b\n\tStartSnip\x1a\x33\n\tFrameSnip\x12&\n\x05\x66rame\x18\x01 \x02(\x0b\x32\x17.fullcircle.BinaryFrame\x1a\t\n\x07\x41\x63kSnip\x1a\n\n\x08NackSnip\x1a\r\n\x0bTimeoutSnip\x1a\x0b\n\tAbortSnip\x1a\t\n\x07\x45osSnip\"\x80\x01\n\x08SnipType\x12\x08\n\x04PING\x10\x01\x12\x08\n\x04PONG\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x12\x0b\n\x07REQUEST\x10\x04\x12\t\n\x05START\x10\x05\x12\t\n\x05\x46RAME\x10\x06\x12\x07\n\x03\x41\x43K\x10\x07\x12\x08\n\x04NACK\x10\x08\x12\x0b\n\x07TIMEOUT\x10\t\x12\t\n\x05\x41\x42ORT\x10\n\x12\x07\n\x03\x45OS\x10\x0b\"+\n\rErrorCodeType\x12\x06\n\x02OK\x10\x01\x12\x12\n\x0e\x44\x45\x43ODING_ERROR\x10\x02')
+  serialized_pb='\n\x0esequence.proto\x12\nfullcircle\"\x85\x01\n\x16\x42inarySequenceMetadata\x12\x19\n\x11\x66rames_per_second\x18\x01 \x02(\r\x12\r\n\x05width\x18\x02 \x02(\r\x12\x0e\n\x06height\x18\x03 \x02(\r\x12\x16\n\x0egenerator_name\x18\x04 \x02(\t\x12\x19\n\x11generator_version\x18\x05 \x02(\t\"J\n\x08RGBValue\x12\x0b\n\x03red\x18\x01 \x02(\r\x12\r\n\x05green\x18\x02 \x02(\r\x12\x0c\n\x04\x62lue\x18\x03 \x02(\r\x12\t\n\x01x\x18\x04 \x02(\r\x12\t\n\x01y\x18\x05 \x02(\r\"2\n\x0b\x42inaryFrame\x12#\n\x05pixel\x18\x01 \x03(\x0b\x32\x14.fullcircle.RGBValue\"n\n\x0e\x42inarySequence\x12\x34\n\x08metadata\x18\x01 \x02(\x0b\x32\".fullcircle.BinarySequenceMetadata\x12&\n\x05\x66rame\x18\x02 \x03(\x0b\x32\x17.fullcircle.BinaryFrame\"\xbf\n\n\x04Snip\x12\'\n\x04type\x18\x01 \x02(\x0e\x32\x19.fullcircle.Snip.SnipType\x12,\n\tping_snip\x18\x0b \x01(\x0b\x32\x19.fullcircle.Snip.PingSnip\x12,\n\tpong_snip\x18\x0c \x01(\x0b\x32\x19.fullcircle.Snip.PongSnip\x12.\n\nerror_snip\x18\r \x01(\x0b\x32\x1a.fullcircle.Snip.ErrorSnip\x12.\n\x08req_snip\x18\x0e \x01(\x0b\x32\x1c.fullcircle.Snip.RequestSnip\x12.\n\nstart_snip\x18\x0f \x01(\x0b\x32\x1a.fullcircle.Snip.StartSnip\x12.\n\nframe_snip\x18\x10 \x01(\x0b\x32\x1a.fullcircle.Snip.FrameSnip\x12*\n\x08\x61\x63k_snip\x18\x11 \x01(\x0b\x32\x18.fullcircle.Snip.AckSnip\x12,\n\tnack_snip\x18\x12 \x01(\x0b\x32\x19.fullcircle.Snip.NackSnip\x12\x32\n\x0ctimeout_snip\x18\x13 \x01(\x0b\x32\x1c.fullcircle.Snip.TimeoutSnip\x12.\n\nabort_snip\x18\x14 \x01(\x0b\x32\x1a.fullcircle.Snip.AbortSnip\x12*\n\x08\x65os_snip\x18\x15 \x01(\x0b\x32\x18.fullcircle.Snip.EosSnip\x12:\n\x10inforequest_snip\x18\x16 \x01(\x0b\x32 .fullcircle.Snip.InfoRequestSnip\x12\x38\n\x0finfoanswer_snip\x18\x17 \x01(\x0b\x32\x1f.fullcircle.Snip.InfoAnswerSnip\x1a\x19\n\x08PingSnip\x12\r\n\x05\x63ount\x18\x01 \x02(\r\x1a\x19\n\x08PongSnip\x12\r\n\x05\x63ount\x18\x01 \x02(\r\x1aS\n\tErrorSnip\x12\x31\n\terrorcode\x18\x01 \x02(\x0e\x32\x1e.fullcircle.Snip.ErrorCodeType\x12\x13\n\x0b\x64\x65scription\x18\x02 \x02(\t\x1a]\n\x0bRequestSnip\x12\r\n\x05\x63olor\x18\x01 \x02(\t\x12\r\n\x05seqId\x18\x02 \x02(\r\x12\x30\n\x04meta\x18\x03 \x02(\x0b\x32\".fullcircle.BinarySequenceMetadata\x1a\x0b\n\tStartSnip\x1a\x33\n\tFrameSnip\x12&\n\x05\x66rame\x18\x01 \x02(\x0b\x32\x17.fullcircle.BinaryFrame\x1a\t\n\x07\x41\x63kSnip\x1a\n\n\x08NackSnip\x1a\r\n\x0bTimeoutSnip\x1a\x0b\n\tAbortSnip\x1a\t\n\x07\x45osSnip\x1a\x11\n\x0fInfoRequestSnip\x1a\x42\n\x0eInfoAnswerSnip\x12\x30\n\x04meta\x18\x01 \x02(\x0b\x32\".fullcircle.BinarySequenceMetadata\"\xa3\x01\n\x08SnipType\x12\x08\n\x04PING\x10\x01\x12\x08\n\x04PONG\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x12\x0b\n\x07REQUEST\x10\x04\x12\t\n\x05START\x10\x05\x12\t\n\x05\x46RAME\x10\x06\x12\x07\n\x03\x41\x43K\x10\x07\x12\x08\n\x04NACK\x10\x08\x12\x0b\n\x07TIMEOUT\x10\t\x12\t\n\x05\x41\x42ORT\x10\n\x12\x07\n\x03\x45OS\x10\x0b\x12\x10\n\x0cINFO_REQUEST\x10\x0c\x12\x0f\n\x0bINFO_ANSWER\x10\r\"+\n\rErrorCodeType\x12\x06\n\x02OK\x10\x01\x12\x12\n\x0e\x44\x45\x43ODING_ERROR\x10\x02')
 
 
 
@@ -65,11 +65,19 @@ _SNIP_SNIPTYPE = descriptor.EnumDescriptor(
       name='EOS', index=10, number=11,
       options=None,
       type=None),
+    descriptor.EnumValueDescriptor(
+      name='INFO_REQUEST', index=11, number=12,
+      options=None,
+      type=None),
+    descriptor.EnumValueDescriptor(
+      name='INFO_ANSWER', index=12, number=13,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=1337,
-  serialized_end=1465,
+  serialized_start=1542,
+  serialized_end=1705,
 )
 
 _SNIP_ERRORCODETYPE = descriptor.EnumDescriptor(
@@ -89,8 +97,8 @@ _SNIP_ERRORCODETYPE = descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1467,
-  serialized_end=1510,
+  serialized_start=1707,
+  serialized_end=1750,
 )
 
 
@@ -292,8 +300,8 @@ _SNIP_PINGSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=974,
-  serialized_end=999,
+  serialized_start=1092,
+  serialized_end=1117,
 )
 
 _SNIP_PONGSNIP = descriptor.Descriptor(
@@ -319,8 +327,8 @@ _SNIP_PONGSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1001,
-  serialized_end=1026,
+  serialized_start=1119,
+  serialized_end=1144,
 )
 
 _SNIP_ERRORSNIP = descriptor.Descriptor(
@@ -353,8 +361,8 @@ _SNIP_ERRORSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1028,
-  serialized_end=1111,
+  serialized_start=1146,
+  serialized_end=1229,
 )
 
 _SNIP_REQUESTSNIP = descriptor.Descriptor(
@@ -394,8 +402,8 @@ _SNIP_REQUESTSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1113,
-  serialized_end=1206,
+  serialized_start=1231,
+  serialized_end=1324,
 )
 
 _SNIP_STARTSNIP = descriptor.Descriptor(
@@ -414,8 +422,8 @@ _SNIP_STARTSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1208,
-  serialized_end=1219,
+  serialized_start=1326,
+  serialized_end=1337,
 )
 
 _SNIP_FRAMESNIP = descriptor.Descriptor(
@@ -441,8 +449,8 @@ _SNIP_FRAMESNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1221,
-  serialized_end=1272,
+  serialized_start=1339,
+  serialized_end=1390,
 )
 
 _SNIP_ACKSNIP = descriptor.Descriptor(
@@ -461,8 +469,8 @@ _SNIP_ACKSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1274,
-  serialized_end=1283,
+  serialized_start=1392,
+  serialized_end=1401,
 )
 
 _SNIP_NACKSNIP = descriptor.Descriptor(
@@ -481,8 +489,8 @@ _SNIP_NACKSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1285,
-  serialized_end=1295,
+  serialized_start=1403,
+  serialized_end=1413,
 )
 
 _SNIP_TIMEOUTSNIP = descriptor.Descriptor(
@@ -501,8 +509,8 @@ _SNIP_TIMEOUTSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1297,
-  serialized_end=1310,
+  serialized_start=1415,
+  serialized_end=1428,
 )
 
 _SNIP_ABORTSNIP = descriptor.Descriptor(
@@ -521,8 +529,8 @@ _SNIP_ABORTSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1312,
-  serialized_end=1323,
+  serialized_start=1430,
+  serialized_end=1441,
 )
 
 _SNIP_EOSSNIP = descriptor.Descriptor(
@@ -541,8 +549,55 @@ _SNIP_EOSSNIP = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1325,
-  serialized_end=1334,
+  serialized_start=1443,
+  serialized_end=1452,
+)
+
+_SNIP_INFOREQUESTSNIP = descriptor.Descriptor(
+  name='InfoRequestSnip',
+  full_name='fullcircle.Snip.InfoRequestSnip',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=1454,
+  serialized_end=1471,
+)
+
+_SNIP_INFOANSWERSNIP = descriptor.Descriptor(
+  name='InfoAnswerSnip',
+  full_name='fullcircle.Snip.InfoAnswerSnip',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    descriptor.FieldDescriptor(
+      name='meta', full_name='fullcircle.Snip.InfoAnswerSnip.meta', index=0,
+      number=1, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=1473,
+  serialized_end=1539,
 )
 
 _SNIP = descriptor.Descriptor(
@@ -636,10 +691,24 @@ _SNIP = descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    descriptor.FieldDescriptor(
+      name='inforequest_snip', full_name='fullcircle.Snip.inforequest_snip', index=12,
+      number=22, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    descriptor.FieldDescriptor(
+      name='infoanswer_snip', full_name='fullcircle.Snip.infoanswer_snip', index=13,
+      number=23, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
-  nested_types=[_SNIP_PINGSNIP, _SNIP_PONGSNIP, _SNIP_ERRORSNIP, _SNIP_REQUESTSNIP, _SNIP_STARTSNIP, _SNIP_FRAMESNIP, _SNIP_ACKSNIP, _SNIP_NACKSNIP, _SNIP_TIMEOUTSNIP, _SNIP_ABORTSNIP, _SNIP_EOSSNIP, ],
+  nested_types=[_SNIP_PINGSNIP, _SNIP_PONGSNIP, _SNIP_ERRORSNIP, _SNIP_REQUESTSNIP, _SNIP_STARTSNIP, _SNIP_FRAMESNIP, _SNIP_ACKSNIP, _SNIP_NACKSNIP, _SNIP_TIMEOUTSNIP, _SNIP_ABORTSNIP, _SNIP_EOSSNIP, _SNIP_INFOREQUESTSNIP, _SNIP_INFOANSWERSNIP, ],
   enum_types=[
     _SNIP_SNIPTYPE,
     _SNIP_ERRORCODETYPE,
@@ -648,7 +717,7 @@ _SNIP = descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=407,
-  serialized_end=1510,
+  serialized_end=1750,
 )
 
 _BINARYFRAME.fields_by_name['pixel'].message_type = _RGBVALUE
@@ -668,6 +737,9 @@ _SNIP_NACKSNIP.containing_type = _SNIP;
 _SNIP_TIMEOUTSNIP.containing_type = _SNIP;
 _SNIP_ABORTSNIP.containing_type = _SNIP;
 _SNIP_EOSSNIP.containing_type = _SNIP;
+_SNIP_INFOREQUESTSNIP.containing_type = _SNIP;
+_SNIP_INFOANSWERSNIP.fields_by_name['meta'].message_type = _BINARYSEQUENCEMETADATA
+_SNIP_INFOANSWERSNIP.containing_type = _SNIP;
 _SNIP.fields_by_name['type'].enum_type = _SNIP_SNIPTYPE
 _SNIP.fields_by_name['ping_snip'].message_type = _SNIP_PINGSNIP
 _SNIP.fields_by_name['pong_snip'].message_type = _SNIP_PONGSNIP
@@ -680,6 +752,8 @@ _SNIP.fields_by_name['nack_snip'].message_type = _SNIP_NACKSNIP
 _SNIP.fields_by_name['timeout_snip'].message_type = _SNIP_TIMEOUTSNIP
 _SNIP.fields_by_name['abort_snip'].message_type = _SNIP_ABORTSNIP
 _SNIP.fields_by_name['eos_snip'].message_type = _SNIP_EOSSNIP
+_SNIP.fields_by_name['inforequest_snip'].message_type = _SNIP_INFOREQUESTSNIP
+_SNIP.fields_by_name['infoanswer_snip'].message_type = _SNIP_INFOANSWERSNIP
 _SNIP_SNIPTYPE.containing_type = _SNIP;
 _SNIP_ERRORCODETYPE.containing_type = _SNIP;
 DESCRIPTOR.message_types_by_name['BinarySequenceMetadata'] = _BINARYSEQUENCEMETADATA
@@ -780,6 +854,18 @@ class Snip(message.Message):
     DESCRIPTOR = _SNIP_EOSSNIP
     
     # @@protoc_insertion_point(class_scope:fullcircle.Snip.EosSnip)
+  
+  class InfoRequestSnip(message.Message):
+    __metaclass__ = reflection.GeneratedProtocolMessageType
+    DESCRIPTOR = _SNIP_INFOREQUESTSNIP
+    
+    # @@protoc_insertion_point(class_scope:fullcircle.Snip.InfoRequestSnip)
+  
+  class InfoAnswerSnip(message.Message):
+    __metaclass__ = reflection.GeneratedProtocolMessageType
+    DESCRIPTOR = _SNIP_INFOANSWERSNIP
+    
+    # @@protoc_insertion_point(class_scope:fullcircle.Snip.InfoAnswerSnip)
   DESCRIPTOR = _SNIP
   
   # @@protoc_insertion_point(class_scope:fullcircle.Snip)

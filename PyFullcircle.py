@@ -175,6 +175,33 @@ class FcClient(object):
             return incoming.pong_snip.count
         else:
             raise socket.error("custom", "Wrong type, expected PongSnip" )
+         
+    def request_info(self):
+        # Build the snippet
+        payload = sequence_pb2.Snip()
+        # type has to be looked up manually from the sequence.proto
+        payload.type = 12
+        
+        # send protobuf-package; put a header of 10 bytes in front 
+        # with the length of the content (as ASCII and aligend to the "right")
+        raw2send = payload.SerializeToString()
+        head = '%10d' % len(raw2send)
+        self.sock.send(head + raw2send)
+        
+        # read from the socket (expect Pong)
+        rawreceive = self.sock.recv(10)
+        # extract length of header (simply the first 10 bytes)
+        length = (rawreceive[:10]).strip()
+        
+        # read protobuf content
+        content = self.sock.recv(int(length))
+        incoming = sequence_pb2.Snip.FromString( content )
+        # type has to be looked up manually from the sequence.proto
+        if (incoming.type == 13):
+	    print "Got the expected answer!"
+            return "%d x %d" % ( incoming.infoanswer_snip.meta.width , incoming.infoanswer_snip.meta.height)
+        else:
+            raise socket.error("custom", "Wrong type, expected PongSnip" )
         
     def send_frames(self, fps, width, height, frameupdate):
 

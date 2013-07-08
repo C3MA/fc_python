@@ -176,6 +176,7 @@ class FcClient(object):
         else:
             raise socket.error("custom", "Wrong type, expected PongSnip" )
          
+    # Returns Width and Height as Tuple
     def request_info(self):
         # Build the snippet
         payload = sequence_pb2.Snip()
@@ -198,8 +199,9 @@ class FcClient(object):
         incoming = sequence_pb2.Snip.FromString( content )
         # type has to be looked up manually from the sequence.proto
         if (incoming.type == 13):
-	    print "Got the expected answer!"
-            return "%d x %d" % ( incoming.infoanswer_snip.meta.width , incoming.infoanswer_snip.meta.height)
+	    # Auskommentiert da es Debug war
+	    #print "Got the expected answer!"
+            return incoming.infoanswer_snip.meta.width , incoming.infoanswer_snip.meta.height
         else:
             raise socket.error("custom", "Wrong type, expected PongSnip" )
         

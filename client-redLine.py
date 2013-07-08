@@ -38,8 +38,8 @@ def main():
     print "Target"  , options.target
 
     fps = 10
-    width = 10
-    height = 12
+    width = 7
+    height = 10
 
     rda = RedDotAni()
 
